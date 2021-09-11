@@ -14,12 +14,20 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   QuestionOption.init({
-    questionId: DataTypes.INTEGER,
+    QuestionId: DataTypes.INTEGER,
     value: DataTypes.STRING,
     isTheAnswer: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'QuestionOption',
   });
+
+  QuestionOption.associate = (models) => {
+    QuestionOption.belongsTo(models.Question, {
+      foreignKey: {
+        allowNull: false,
+      },
+    });
+  };
   return QuestionOption;
 };

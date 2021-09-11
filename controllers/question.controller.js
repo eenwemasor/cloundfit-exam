@@ -1,7 +1,16 @@
 const models = require("../models");
+const Validator = require("fastest-validator")
+
+
+const QuestionsSchema = {
+  body:{type:"string", optional:false, maxLength:"1000"},
+  options:{type:"array", optional:true},
+  CategoryId:{type:"number", optional:false}
+}
 
 const index = (req, res) => {
-  models.Question.findAll()
+
+  models.Category.findAll({include:  [{ model: 'Category'}]})
     .then((result) => {
       res.status(200).json({
         data: result,
@@ -15,12 +24,24 @@ const index = (req, res) => {
 };
 
 const save = (req, res) => {
-  const { body, categoryId, options } = req.body;
+  const { body, CategoryId, options } = req.body;
   const question = {
     body,
     options,
-    categoryId,
+    CategoryId,
   };
+
+
+  const v = new Validator();
+  const vRes = v.validate(question, QuestionsSchema);
+
+  if(vRes !== true){
+    res.status(400).json({
+      message: "invalid data",
+      error: vRes,
+    });
+  }
+
   models.Question.create(question)
     .then(async (result) => {
       let savedOptions = [];
@@ -46,13 +67,25 @@ const save = (req, res) => {
 };
 
 const update = (req, res) => {
-  let questionId = req.params.questionId;
-  const { body, categoryId } = req.body;
+  let QuestionId = req.params.QuestionId;
+  const { body, CategoryId } = req.body;
   const question = {
     body,
-    categoryId,
+    CategoryId,
   };
-  models.Question.update(question, { where: { id: questionId } })
+
+  const v = new Validator();
+  const vRes = v.validate(question, QuestionsSchema);
+
+  if(vRes !== true){
+    res.status(400).json({
+      message: "invalid data",
+      error: vRes,
+    });
+  }
+
+  
+  models.Question.update(question, { where: { id: QuestionId } })
     .then((status) => {
       res.status(201).json({
         message: "question updated successfully",
@@ -68,11 +101,11 @@ const update = (req, res) => {
 };
 
 const destroy = (req, res) => {
-  let questionId = req.params.questionId;
+  let QuestionId = req.params.QuestionId;
 
-  models.Question.destroy({ where: { id: questionId } })
+  models.Question.destroy({ where: { id: QuestionId } })
     .then(async () => {
-      await destroyQuestionOptions(questionId);
+      await destroyQuestionOptions(QuestionId);
       return true;
     })
     .then((status) => {
@@ -89,9 +122,9 @@ const destroy = (req, res) => {
 };
 
 const saveQuestionOption = (req, res) => {
-  const { questionId, value, isTheAnswer } = req.body;
+  const { QuestionId, value, isTheAnswer } = req.body;
   const option = {
-    questionId,
+    QuestionId,
     value,
     isTheAnswer,
   };
@@ -125,10 +158,10 @@ const show = (req, res) => {
     });
 };
 
-const saveQuestionOptions = async (questionID, options) => {
+const saveQuestionOptions = async (QuestionID, options) => {
   const saveOptions = [];
   options.map(async (option) => {
-    option.questionId = questionID;
+    option.QuestionId = QuestionID;
     models.QuestionOption.create(option)
       .then((result) => {
         saveOptions.push(result);
@@ -141,8 +174,8 @@ const saveQuestionOptions = async (questionID, options) => {
   return saveOptions;
 };
 
-const destroyQuestionOptions = async (questionId) => {
-  await models.QuestionOption.destroy({ where: { questionId: questionId } });
+const destroyQuestionOptions = async (QuestionId) => {
+  await models.QuestionOption.destroy({ where: { QuestionId: QuestionId } });
 };
 
 // updates question option individually

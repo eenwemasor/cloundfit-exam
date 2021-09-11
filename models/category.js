@@ -19,5 +19,13 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Category',
   });
+
+  Category.associate = (models) => {
+    Category.hasMany(models.Question, {
+      onDelete: "cascade",
+    });
+  };
+
+
   return Category;
 };
