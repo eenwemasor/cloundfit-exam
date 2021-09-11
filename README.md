@@ -3,6 +3,7 @@
 
 - ` git clone git@github.com:enwemasor1995/cloundfit-exam.git`
 - ` npm install`
+-  to run migration `npx sequelize db:migrate` ensure the you have a database name exam on your local mysql setup
 - ` npm run start` to run the serve on port 8080
 
 
