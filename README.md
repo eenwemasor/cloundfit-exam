@@ -28,7 +28,7 @@ curl --request POST \
 - update category
 ```
 curl --request PUT \
-  --url http://localhost:8080/categories/update/2 \
+  --url http://localhost:8080/categories/update/:id \
   --header 'Content-Type: application/json' \
   --data '{
 	"name":"aptitude alone"
@@ -39,7 +39,7 @@ curl --request PUT \
 - delete category
 ```
 curl --request DELETE \
-  --url http://localhost:8080/categories/destroy/1
+  --url http://localhost:8080/categories/destroy/:id
 
 ```
 
@@ -72,7 +72,7 @@ curl --request POST \
 - update question
 ```
 curl --request PUT \
-  --url http://localhost:8080/questions/update/1 \
+  --url http://localhost:8080/questions/update/:id \
   --header 'Content-Type: application/json' \
   --data '{
 	"body": "What is your name again",
@@ -86,7 +86,7 @@ curl --request PUT \
 - delete question
 ```
 curl --request DELETE \
-  --url http://localhost:8080/questions/destroy/15 \
+  --url http://localhost:8080/questions/destroy/:id \
   --header 'Content-Type: application/json'
 
 ```
@@ -111,7 +111,7 @@ curl --request POST \
 - update question option
 ```
 curl --request PUT \
-  --url http://localhost:8080/questions/options/update/1 \
+  --url http://localhost:8080/questions/options/update/:id \
   --header 'Content-Type: application/json' \
   --data '{
 	"questionId":14,
@@ -126,6 +126,6 @@ curl --request PUT \
 - delete question option
 ```
 curl --request DELETE \
-  --url http://localhost:8080/questions/options/destroy/1
+  --url http://localhost:8080/questions/options/destroy/:id
 
 ```
