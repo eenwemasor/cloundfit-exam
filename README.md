@@ -2,6 +2,7 @@
 
 
 - ` git clone git@github.com:enwemasor1995/cloundfit-exam.git`
+- ` npm install`
 - ` npm run start` to run the serve on port 8080
 
 
