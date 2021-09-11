@@ -1,0 +1,30 @@
+{
+  "name": "exam",
+  "version": "1.0.0",
+  "description": "Api to perform crud operation fro exam",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/enwemasor1995/cloundfit-exam.git"
+  },
+  "author": "Enwemasor Barnabas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/enwemasor1995/cloundfit-exam/issues"
+  },
+  "homepage": "https://github.com/enwemasor1995/cloundfit-exam#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.0",
+    "sequelize": "^6.6.5"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.2.0"
+  }
+}
