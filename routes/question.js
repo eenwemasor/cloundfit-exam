@@ -6,6 +6,7 @@ const questionController = require('../controllers/question.controller')
 const router = express.Router();
 
 router.get('/', questionController.index);
+router.get('/question', questionController.question);
 router.post('/create', questionController.save);
 router.put('/update/:questionId', questionController.update);
 router.delete('/destroy/:questionId', questionController.destroy);

@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
   QuestionOption.associate = (models) => {
     QuestionOption.belongsTo(models.Question, {
       foreignKey: {
+        name:"QuestionId",
         allowNull: false,
       },
     });

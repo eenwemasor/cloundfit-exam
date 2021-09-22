@@ -22,15 +22,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   Question.associate = (models) => {
-    Question.hasMany(models.QuestionOption, {
-      onDelete: "cascade",
-    });
-  };
-  Question.associate = (models) => {
     Question.belongsTo(models.Category, {
       foreignKey: {
+        name:"CategoryId",
         allowNull: false,
       },
+    });
+    Question.hasMany(models.QuestionOption, {
+      onDelete: "cascade",
+      as:"options"
     });
   };
   return Question;
